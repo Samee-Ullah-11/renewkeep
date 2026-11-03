@@ -32,10 +32,11 @@ const UPLOAD_DIR = path.join(
   "..",
   "uploads"
 );
-if (!useCloudinary) fs.mkdirSync(UPLOAD_DIR, { recursive: true });
-
-/** Resolve a key to its absolute path, refusing anything that escapes the dir. */
+/** Resolve a key to its absolute path, refusing anything that escapes the dir.
+ *  The dir is created lazily (not at import time): on serverless hosts the
+ *  filesystem is read-only and an import-time mkdir would crash every route. */
 function pathFor(key) {
+  fs.mkdirSync(UPLOAD_DIR, { recursive: true });
   const p = path.join(UPLOAD_DIR, key);
   if (!p.startsWith(UPLOAD_DIR + path.sep)) throw new Error("Invalid file key");
   return p;

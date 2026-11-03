@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://renewkeep.vercel.app/"
+      "destination": "https://renewkeep.vercel.app/api/:path*"
     }
   ]
 }

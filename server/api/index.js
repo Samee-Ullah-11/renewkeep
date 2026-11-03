@@ -10,7 +10,13 @@ import app from "../app.js";
 let connecting = null;
 
 export default async function handler(req, res) {
-  if (!connecting) connecting = mongoose.connect(process.env.MONGODB_URI);
-  await connecting;
+  try {
+    if (!connecting) connecting = mongoose.connect(process.env.MONGODB_URI);
+    await connecting;
+  } catch (err) {
+    connecting = null; // let the next request retry instead of caching the failure
+    console.error("DB connection failed:", err.message);
+    return res.status(500).json({ message: "Database connection failed" });
+  }
   return app(req, res);
 }
