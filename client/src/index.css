@@ -191,12 +191,29 @@ button { font-family: var(--font-body); cursor: pointer; }
 .auth-wrap {
   min-height: 100vh;
   display: flex;
-  align-items: center;
   justify-content: center;
-  padding: 1rem;
+  /* Anchored toward the top: a dead-centered card leaves awkward empty
+     bands above and below on tall phone screens. */
+  align-items: flex-start;
+  padding: clamp(2rem, 10vh, 7rem) 1rem 2rem;
 }
 
-.auth-card { width: 100%; max-width: 420px; }
+.auth-col {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+/* .brand is white for the dark sidebar; on the light auth page it must win. */
+.brand.auth-brand { font-size: 1.6rem; color: var(--ink); align-self: center; }
+.brand.auth-brand span { color: var(--teal); }
+.brand.auth-brand:hover { color: var(--ink); }
+
+.auth-card { width: 100%; }
+
+.auth-foot { text-align: center; font-size: 0.9rem; max-width: 320px; margin: 0 auto; }
 
 /* ---------- app shell ---------- */
 

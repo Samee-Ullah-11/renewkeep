@@ -50,11 +50,12 @@ export default function Auth() {
 
   return (
     <div className="auth-wrap">
-      <div className="card auth-card">
-        <Link to="/" className="muted">← RenewKeep</Link>
-        <h2 style={{ marginTop: "0.5rem" }}>
-          {mode === "login" ? "Welcome back" : "Create your account"}
-        </h2>
+      <div className="auth-col">
+        <Link to="/" className="brand auth-brand">
+          Renew<span>Keep</span>
+        </Link>
+        <div className="card auth-card">
+          <h2>{mode === "login" ? "Welcome back" : "Create your account"}</h2>
 
         <form onSubmit={submit}>
           {mode === "signup" && (
@@ -117,6 +118,10 @@ export default function Auth() {
               </button>
             </>
           )}
+          </p>
+        </div>
+        <p className="auth-foot muted">
+          Licenses, permits and insurance — reminded before they expire.
         </p>
       </div>
     </div>
