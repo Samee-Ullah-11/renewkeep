@@ -102,7 +102,8 @@ export async function getStream(key) {
 export async function remove(key) {
   if (useCloudinary) {
     // destroy() reports "not found" in the result body, not as an error — fine.
-    await cloudinary.uploader.destroy(cloudId(key), CLOUD_OPTS);
+    // invalidate purges the CDN cache, so a deleted file stops being servable.
+    await cloudinary.uploader.destroy(cloudId(key), { ...CLOUD_OPTS, invalidate: true });
     return;
   }
   try {
